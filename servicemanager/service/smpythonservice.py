@@ -2,13 +2,16 @@
 import os
 import shutil
 import zipfile
-import signal
+import sys
 import time
 import re
-
 import requests
 
-from servicemanager import subprocess
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
+
 from smservice import SmService, SmMicroServiceStarter, SmServiceStatus
 from servicemanager.smprocess import SmProcess, kill_pid
 from servicemanager.smfile import force_chdir, force_pushdir, remove_if_exists, remove_folder_if_exists, makedirs_if_not_exists

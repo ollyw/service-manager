@@ -4,6 +4,11 @@ import sys
 # dont do this in production code, this is bad practice it would seem, only for tests
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../../servicemanager'))
 
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
+
 from servicemanager.actions import actions
 from servicemanager.serviceresolver import ServiceResolver
 from servicemanager.smcontext import SmApplication, SmContext
@@ -11,7 +16,6 @@ from servicemanager.smcontext import SmApplication, SmContext
 import time
 import shutil
 import unittest
-from servicemanager import subprocess
 
 class TestBase(unittest.TestCase):
 
@@ -75,5 +79,5 @@ class TestBase(unittest.TestCase):
         ps_command = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
         stdout, stderr = ps_command.communicate()
         print(stdout)
-        
+
         self.assertEquals(value, expected)

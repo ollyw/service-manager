@@ -3,8 +3,13 @@ import os
 import time
 import calendar
 import glob
+import sys
 
-from servicemanager import subprocess
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
+
 from servicemanager.smcontext import ServiceManagerException
 from servicemanager.smprocess import SmProcess
 from servicemanager.service.smplayservice import SmPlayService

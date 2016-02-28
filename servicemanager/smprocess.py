@@ -3,8 +3,12 @@ from signal import SIGINT, SIGKILL
 import os
 import re
 import time
+import sys
 
-from servicemanager import subprocess
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
 
 
 def kill_pid(context, pid, force=False, wait=False):

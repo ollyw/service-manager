@@ -4,10 +4,15 @@ import re
 
 import requests
 import types
+import sys
+
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
 
 from servicemanager.service.smservice import SmServiceStarter, SmService, SmServiceStatus
 from servicemanager.smprocess import SmProcess, kill_processes_matching
-from servicemanager import subprocess
 
 
 class SmExternalServiceStarter(SmServiceStarter):

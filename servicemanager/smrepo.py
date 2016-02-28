@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 import os
+import sys
 
 from actions.colours import BColors
-from servicemanager import subprocess
+
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
 
 
 b = BColors()

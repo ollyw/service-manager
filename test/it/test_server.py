@@ -72,7 +72,9 @@ class TestServerFunctionality(TestBase):
 
         self.waitForCondition(lambda : len(SmProcess.processes_matching(pattern)), 2)
         processes = SmProcess.processes_matching(pattern)
-        self.assertTrue(";echo" in processes[0].args or ";echo" in processes[1].args)
+        print(processes[0].args)
+        print(processes[1].args)
+        self.assertTrue("foo" in processes[0].args or "foo" in processes[1].args)
 
         context.kill_everything(True)
         self.assertEqual(context.get_service("TEST_ONE").status(), [])
